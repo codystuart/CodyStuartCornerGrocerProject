@@ -1,5 +1,6 @@
 #include "Manager.h"
 #include <string>
+#include <iomanip>
 
 void Manager::DisplayQueriedItem(string t_product) {
     // Check if the item exists in the map
@@ -12,15 +13,27 @@ void Manager::DisplayQueriedItem(string t_product) {
 }
 
 void Manager::DisplayAllProducts() {
-    for (auto produce : m_productMap) {
-        cout << produce.first << ": " << produce.second << endl;
+    cout << left << setw(20) << "Product" << "| " << "Frequency" << endl; // Column headers
+    cout << string(30, '-') << endl; // Divider line
+    for (const auto& produce : m_productMap) {
+        cout << left << setw(20) << produce.first << "| " << produce.second << endl; // Align left and set width
     }
 }
 
 void Manager::DisplayHistogram() {
-    cout << "Histogram of item purchases:" << endl;
+    //cout << "Histogram of item purchases:" << endl;
+    //for (const auto& produce : m_productMap) {
+    //    cout << produce.first << " ";
+    //    for (int i = 0; i < produce.second; ++i) {
+    //        cout << "*"; // Represent frequency with asterisks
+    //    }
+    //    cout << endl;
+    //}
+
+    cout << left << setw(20) << "Product" << "| " << "Histogram" << endl; // Column headers
+    cout << string(40, '-') << endl; // Divider line
     for (const auto& produce : m_productMap) {
-        cout << produce.first << " ";
+        cout << left << setw(20) << produce.first << "| "; // Align left and set width
         for (int i = 0; i < produce.second; ++i) {
             cout << "*"; // Represent frequency with asterisks
         }

@@ -20,33 +20,34 @@ int main() {
     Manager manager;
     int menuChoice;
 
-    while (running) { //loop based on a bool set to true, exit the loop (and the program) when the bool is set to false
-        rw.ReadFileData("CS210_Project_Three_Input_File.txt", productMap); //Open the file for today's sales and read it into a map
-        
-        manager.SetMap(productMap); //use a setter from the manager class to assign the product map to the classes private member variable map
+    //I moved the next two lines out of the loop because it continued to open the file and read the contents into the map artificially increasing the frequency of each item sold.
+    rw.ReadFileData("CS210_Project_Three_Input_File.txt", productMap); //Open the file for today's sales and read it into a map
+    manager.SetMap(productMap); //use a setter from the manager class to assign the product map to the classes private member variable map
 
+    while (running) { //loop based on a bool set to true, exit the loop (and the program) when the bool is set to false
         menuChoice = rw.PromptMenu();
 
         switch (menuChoice) {
         case 1:
-            cout << "\nMenu Option One" << endl;
+            cout << "\nItem Query" << endl;
+            cout << "---------------------------------" << endl;
             cout << "Please enter the name of item you want to search for.\nItem: ";
             cin >> userQuery;
             manager.DisplayQueriedItem(userQuery);
             break;
         case 2:
-            cout << "\nMenu Option Two" << endl;
-
+            cout << "\nDisplaying All Products Sold" << endl;
+            cout << "---------------------------------" << endl;
             manager.DisplayAllProducts();
             break;
         case 3:
-            cout << "\nMenu Option Three" << endl;
-
+            cout << "\Displaying Histogram of Products Sold" << endl;
+            cout << "---------------------------------" << endl;
             manager.DisplayHistogram();
             break;
         case 4:
-            cout << "\nMenu Option Four" << endl;
-
+            cout << "\Exit Prompt" << endl;
+            cout << "---------------------------------" << endl;
             manager.ExitPrompt(running);
             break;
         }
