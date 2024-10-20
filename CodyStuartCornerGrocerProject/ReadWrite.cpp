@@ -32,3 +32,29 @@ void ReadWrite::WriteFileData(string fileName, map<string, int> productMap) {
         }
     }
 }
+
+int ReadWrite::PromptMenu() {
+    int choice;
+    cout << "\nMenu Options:\n";
+    cout << "1. Search for an item\n";
+    cout << "2. Display all products\n";
+    cout << "3. Display histogram\n";
+    cout << "4. Exit\n";
+    cout << "Please enter your choice: ";
+
+    while (true) {
+        cin >> choice;
+
+        if (cin.fail() || choice < 1 || choice > 4) {  // Validate input
+            cin.clear(); // Clear the error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore the rest of the line
+            cout << "Invalid choice. Please enter a number between 1 and 4: ";
+        }
+        else {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore the rest of the line
+            break; // Exit the loop
+        }
+    }
+
+    return choice; // Return the validated choice
+}

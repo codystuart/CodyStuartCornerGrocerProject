@@ -5,8 +5,6 @@
 */
 
 //Pre-processer section
-#include <string>
-
 #include "ReadWrite.h"
 #include "Manager.h"
 
@@ -19,61 +17,39 @@ int main() {
     bool running = true;
     map<string, int> productMap;
     ReadWrite rw;
+    Manager manager;
+    int menuChoice;
 
-    while (running) {
-        cout << "Menu Option One" << endl;
-        cout << "Please enter the name of item you want to search for.\nItem: ";
+    while (running) { //loop based on a bool set to true, exit the loop (and the program) when the bool is set to false
+        rw.ReadFileData("CS210_Project_Three_Input_File.txt", productMap); //Open the file for today's sales and read it into a map
+        
+        manager.SetMap(productMap); //use a setter from the manager class to assign the product map to the classes private member variable map
 
-        cin >> userQuery;
+        menuChoice = rw.PromptMenu();
 
-        rw.ReadFileData("CS210_Project_Three_Input_File.txt", productMap);
+        switch (menuChoice) {
+        case 1:
+            cout << "\nMenu Option One" << endl;
+            cout << "Please enter the name of item you want to search for.\nItem: ";
+            cin >> userQuery;
+            manager.DisplayQueriedItem(userQuery);
+            break;
+        case 2:
+            cout << "\nMenu Option Two" << endl;
 
-        // Check if the item exists in the map
-        if (productMap.find(userQuery) != productMap.end()) {
-            cout << "The requested produce " << userQuery << " was sold " << productMap.at(userQuery) << " times today." << endl;
+            manager.DisplayAllProducts();
+            break;
+        case 3:
+            cout << "\nMenu Option Three" << endl;
+
+            manager.DisplayHistogram();
+            break;
+        case 4:
+            cout << "\nMenu Option Four" << endl;
+
+            manager.ExitPrompt(running);
+            break;
         }
-        else {
-            cout << "The requested produce " << userQuery << " was not found." << endl;
-        }
-
-        cout << "\nMenu Option Two" << endl;
-
-        for (auto produce : productMap) {
-            cout << produce.first << ": " << produce.second << endl;
-        }
-
-        cout << "\nMenu Option Three" << endl;
-        cout << "Histogram of item purchases:" << endl;
-        for (const auto& produce : productMap) {
-            cout << produce.first << " ";
-            for (int i = 0; i < produce.second; ++i) {
-                cout << "*"; // Represent frequency with asterisks
-            }
-            cout << endl;
-        }
-
-        cout << "\nMenu Option Four" << endl;
-        cout << "Do you wish to exit?\n1. Yes\n2. No\nChoice? [ ]\b\b";
-
-        //std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        //getline(cin, exitQuery);
-        try {
-            cin >> exitQuery;
-
-            if (exitQuery != "1" && exitQuery != "2") {
-                throw invalid_argument("Invalid input. Please enter 1 or 2.");
-            }
-
-            if (exitQuery == "1") {
-                running = false;
-            }
-
-        }
-        catch (const invalid_argument& e) {
-            //handle the invalid input for the exit prompt
-            cout << e.what() << endl; //prints the error message
-        }
-
     }
 
 }
