@@ -11,8 +11,8 @@ using namespace std;
 
 class ReadWrite {
 public:
-	void ReadFileData(string fileName, map<string, int>& t_productMap);
-	void WriteFileData(string fileName, map<string, int> t_productMap);
+	void ReadFileData(string t_fileName, map<string, int>& t_productMap);
+	void WriteFileData(string t_fileName, map<string, int> t_productMap);
 	int PromptMenu();
 };
 #endif

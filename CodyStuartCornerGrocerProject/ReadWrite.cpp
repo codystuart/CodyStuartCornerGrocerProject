@@ -1,36 +1,43 @@
 #include "ReadWrite.h"
+#include <iomanip>
 
-void ReadWrite::ReadFileData(string fileName, map<string, int>& productMap) {
+void ReadWrite::ReadFileData(string t_fileName, map<string, int>& t_productMap) {
 
     ifstream fileRead; //Create an ifstream object to use with reading files
     string currProduct; //create a string to hold each object as we read it into our map
 
-    fileRead.open(fileName); //Open the file to read
+    fileRead.open(t_fileName); //Open the file to read
 
     while (!fileRead.eof()) { //loop until we have reached the end of the file
         fileRead >> currProduct; //read the current line and assign it to our current product string
-        if (productMap.count(currProduct) == 0) { //check if the corresponding key to the string exist in the map already map.count(key) returns 0 if a key does not exist
-            productMap[currProduct] = 1; //assigns new key with value of 1
+        if (t_productMap.count(currProduct) == 0) { //check if the corresponding key to the string exist in the map already map.count(key) returns 0 if a key does not exist
+            t_productMap[currProduct] = 1; //assigns new key with value of 1
         }
         else {
-            productMap.at(currProduct) += 1; //increment pre-existing value to corrosponding key by one 
+            t_productMap.at(currProduct) += 1; //increment pre-existing value to corrosponding key by one 
         }
     }
-
-
 
     fileRead.close(); //Don't forget to close the file when we're done!
+
+    WriteFileData("frequency.dat", t_productMap);
 }
 
-void ReadWrite::WriteFileData(string fileName, map<string, int> productMap) {
+void ReadWrite::WriteFileData(string t_fileName, map<string, int> t_productMap) {
     ofstream fileWrite;
 
-    fileWrite.open(fileName);
+    fileWrite.open(t_fileName, ios_base::app);
+
     if (fileWrite.is_open()) {
-        for (auto produce : productMap) {
-            fileWrite << produce.first << ": " << produce.second << endl;
+        fileWrite << left << setw(20) << "Product" << "| " << "Frequency" << endl; // Column headers
+        fileWrite << string(30, '-') << endl; // Divider line
+        for (const auto& produce : t_productMap) {
+            fileWrite << left << setw(20) << produce.first << "| " << produce.second << endl; // Align left and set width
         }
+        fileWrite << endl;
     }
+ 
+    fileWrite.close();
 }
 
 int ReadWrite::PromptMenu() {
