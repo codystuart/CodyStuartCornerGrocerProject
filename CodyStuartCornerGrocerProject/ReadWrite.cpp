@@ -1,5 +1,7 @@
 #include "ReadWrite.h"
 #include <iomanip>
+#include <algorithm>
+#include <cctype>
 
 void ReadWrite::ReadFileData(string t_fileName, map<string, int>& t_productMap) {
 
@@ -10,6 +12,11 @@ void ReadWrite::ReadFileData(string t_fileName, map<string, int>& t_productMap) 
 
     while (!fileRead.eof()) { //loop until we have reached the end of the file
         fileRead >> currProduct; //read the current line and assign it to our current product string
+
+        // Convert the input product string to lowercase
+        std::transform(currProduct.begin(), currProduct.end(), currProduct.begin(),
+            [](unsigned char c) { return std::tolower(c); });
+
         if (t_productMap.count(currProduct) == 0) { //check if the corresponding key to the string exist in the map already map.count(key) returns 0 if a key does not exist
             t_productMap[currProduct] = 1; //assigns new key with value of 1
         }

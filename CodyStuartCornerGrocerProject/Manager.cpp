@@ -1,8 +1,14 @@
 #include "Manager.h"
 #include <string>
 #include <iomanip>
+#include <algorithm>
+#include <cctype>
 
 void Manager::DisplayQueriedItem(string t_product) {
+    // Convert the input product string to lowercase
+    std::transform(t_product.begin(), t_product.end(), t_product.begin(),
+        [](unsigned char c) { return std::tolower(c); });
+
     // Check if the item exists in the map
     if (m_productMap.find(t_product) != m_productMap.end()) {
         cout << "The requested produce " << t_product << " was sold " << m_productMap.at(t_product) << " times today." << endl;
