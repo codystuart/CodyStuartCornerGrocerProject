@@ -1,7 +1,7 @@
 /* CodyStuartCornerGrocerProject.cpp : This file contains the 'main' function.Program execution begins and ends there.
       Name: Cody Stuart
    Project: Project Three Corner Grocer
-      Plan: My plan for completing this assignment is to start by getting all of the functionality working in main first I know this will be somewhat not desired but I'd like for the application to work first and then I will begin updating the program to be clean and stylized.
+      Plan: 
 */
 
 //Pre-processer section
@@ -47,7 +47,7 @@ int main() {
         case 4:
             cout << "\Exit Prompt" << endl; //Indicates exit prompt
             cout << "---------------------------------" << endl; //line break for better visuals
-            manager.ExitPrompt(running);
+            rw.ExitPrompt(running);
             break;
         }
     }

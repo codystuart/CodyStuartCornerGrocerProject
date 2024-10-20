@@ -14,5 +14,6 @@ public:
 	void ReadFileData(string t_fileName, map<string, int>& t_productMap);
 	void WriteFileData(string t_fileName, map<string, int> t_productMap);
 	int PromptMenu();
+	bool ExitPrompt(bool& t_running);
 };
 #endif

@@ -37,7 +37,7 @@ void ReadWrite::WriteFileData(string t_fileName, map<string, int> t_productMap) 
 
     if (fileWrite.is_open()) { //check if the file is open
         fileWrite << left << setw(20) << "Product" << "| " << "Frequency" << endl; // Column headers with formatting
-        fileWrite << string(30, '-') << endl; // Divider line
+        fileWrite << string(33, '-') << endl; // Divider line
         for (const auto& produce : t_productMap) { // Iterate through the product map to write each product and its frequency to the file
             fileWrite << left << setw(20) << produce.first << "| " << produce.second << endl; // Align left and set width
         }
@@ -76,4 +76,35 @@ int ReadWrite::PromptMenu() {
     }
 
     return choice; // Return the validated choice
+}
+
+bool ReadWrite::ExitPrompt(bool& t_running) {  //Passed in a bool by reference so it can be modified if the user wishes to exit
+    string exitQuery;
+
+    while (true) {
+        cout << "Do you wish to exit?\n1. Yes\n2. No\nChoice? [ ]\b\b";
+
+        //Using a try/throw/catch block to validate the user entered proper input for the exit function
+        try {
+            cin >> exitQuery;
+
+            if (exitQuery != "1" && exitQuery != "2") { //This check was hard to figure out, basically if exitQuery evaluates to either a 1 or a 2 the statement becomes true + false, or false + true which in an and equation means false, and when it is false it will not execute the if statement and will not throw an exception
+                throw invalid_argument("Invalid input. Please enter 1 or 2.");
+            }
+
+            if (exitQuery == "1") { //Sets the bool to false to exit the program if 1 is selected.
+                t_running = false;
+            }
+
+            break;
+
+        }
+        catch (const invalid_argument& e) {
+            //handle the invalid input for the exit prompt
+            cout << e.what() << endl; //prints the error message
+        }
+    }
+
+    return t_running;
+
 }
