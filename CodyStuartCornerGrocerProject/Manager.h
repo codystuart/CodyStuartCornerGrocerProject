@@ -17,6 +17,7 @@ public:
 	void SetMap(map<string, int> t_productMap);
 	map<string,int> GetMap();
 	bool ExitPrompt(bool& t_running);
+
 private:
 	map<string, int> m_productMap;
 };
